@@ -1,0 +1,25 @@
+<svg viewBox="-100 -100 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="watercolor" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="noise" />
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+  </defs>
+  <g filter="url(#watercolor)">
+    <g opacity="0.6">
+      <ellipse rx="75" ry="50" fill="#FFFFFF" stroke="#F0F0F0" transform="rotate(0) translate(20,0)" />
+      <ellipse rx="75" ry="50" fill="#FFFFFF" stroke="#F0F0F0" transform="rotate(36) translate(20,0)" />
+      <ellipse rx="75" ry="50" fill="#FFFFFF" stroke="#F0F0F0" transform="rotate(72) translate(20,0)" />
+      <ellipse rx="75" ry="50" fill="#FFFFFF" stroke="#F0F0F0" transform="rotate(108) translate(20,0)" />
+      <ellipse rx="75" ry="50" fill="#FFFFFF" stroke="#F0F0F0" transform="rotate(144) translate(20,0)" />
+      <ellipse rx="75" ry="50" fill="#FFFFFF" stroke="#F0F0F0" transform="rotate(180) translate(20,0)" />
+      <ellipse rx="75" ry="50" fill="#FFFFFF" stroke="#F0F0F0" transform="rotate(216) translate(20,0)" />
+      <ellipse rx="75" ry="50" fill="#FFFFFF" stroke="#F0F0F0" transform="rotate(252) translate(20,0)" />
+      <ellipse rx="75" ry="50" fill="#FFFFFF" stroke="#F0F0F0" transform="rotate(288) translate(20,0)" />
+      <ellipse rx="75" ry="50" fill="#FFFFFF" stroke="#F0F0F0" transform="rotate(324) translate(20,0)" />
+    </g>
+    <circle r="45" fill="#FAFAFA" opacity="0.9" />
+    <circle r="12" fill="#FFFACD" />
+    <circle r="6" fill="#FFF59D" opacity="0.5" />
+  </g>
+</svg>

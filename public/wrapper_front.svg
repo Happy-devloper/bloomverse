@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1066" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <linearGradient id="wrapGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF2F4" />
+      <stop offset="50%" stop-color="#FFC2D1" />
+      <stop offset="100%" stop-color="#F472B6" />
+    </linearGradient>
+  </defs>
+
+  <!-- main wrapper body covering from the opening curve down to the bottom -->
+  <path d="M0,520 C120,414 200,392 300,478 L500,478 C600,392 680,414 800,520 L800,1066 L0,1066 Z" fill="url(#wrapGrad)" />
+
+  <!-- Decorative folds -->
+  <path d="M0,520 C60,584 80,690 120,754 L160,724 C120,660 80,554 0,520 Z" fill="#FFD6E0" opacity="0.25" />
+  <path d="M800,520 C740,584 720,690 680,754 L640,724 C680,660 720,554 800,520 Z" fill="#FFD6E0" opacity="0.25" />
+
+  <!-- bottom shadow to anchor bouquet -->
+  <ellipse cx="400" cy="1000" rx="288" ry="64" fill="rgba(0,0,0,0.08)" />
+</svg>
