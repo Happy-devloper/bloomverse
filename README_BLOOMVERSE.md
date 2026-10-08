@@ -1,193 +1,99 @@
-# DigiBloom - Digital Flower Bouquet Greeting Cards
+# Bloomverse
 
-A mobile-first web application that allows users to create beautiful animated digital flower bouquets and send them as personalized greeting cards. Built with React, Vite, Framer Motion, and Tailwind CSS.
+Create a digital flower bouquet or write a vintage-style love letter, then share it with someone special. Bloomverse is a browser-based React app with animated previews and shareable links.
 
-## Features
+## What you can make
 
-✨ **Core MVP Features:**
-- 🌹 **Flower Selection** - Choose from 8 different flower types
-- 🎨 **Bouquet Layouts** - 4 different arrangement styles (Classic Round, Luxury Cascade, Minimal Modern, Heart Shape)
-- 💌 **Personalized Messages** - Add custom messages with recipient and sender names
-- ✨ **Bloom Animation** - Beautiful animated bouquet with floating petal effects
-- 🔗 **Shareable Links** - Generate unique URLs to share bouquets (URL-encoded data, no backend needed)
-- 📱 **Mobile-First Design** - Optimized for iPhone 14/15 (390px × 844px)
-- 💬 **Share Options** - Copy link or share directly on WhatsApp
-- 📊 **AdSense Ready** - Ad integration on shared bouquet pages
+### Digital bouquets
 
-## Quick Start
+- Choose from 10 flowers: red rose, yellow rose, lily, peony, sunflower, orchid, hydrangea, camellia, chrysanthemum, and magnolia.
+- Arrange up to 20 flowers in Classic Round, Luxury Cascade, Minimal Modern, or Heart Shape layouts.
+- Add recipient and sender names, plus a personal note.
+- Watch a live bouquet preview as you make changes.
+- Review the finished card, download it as an image, copy its link, or share it on WhatsApp.
 
-### Prerequisites
-- A Node.js version supported by Vite 8
-- npm or yarn
+### Vintage-style letters
 
-### Installation
+- Pick one of five cover themes: Passionate Rose, Moonlight Romance, Vintage Love, Garden Whisper, or Eternal Gold.
+- Choose from five handwriting styles.
+- Write a personal letter and preview its cover or letter page.
+- Share the letter with a link or WhatsApp, and download a card image.
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd bloomverse
-   ```
+Shared bouquets and letters open as animated greetings. You can also download the card from the shared page.
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+## Getting started
 
-3. **Start the development server**
-   ```bash
-   npm run dev
-   ```
-   The app will be available at `http://localhost:5173/`
+### Requirements
 
-### Build for Production
+- Node.js version supported by Vite 8
+- npm
 
-```bash
-npm run build
-npm run preview
+### Install and run
+
+Clone the repository, then open a terminal in the project folder, the one containing `package.json`:
+
+```sh
+git clone <repository-url>
+cd bloomverse
+npm install
+npm run dev
 ```
 
-## Project Structure
+Open the local URL printed by Vite, usually `http://localhost:5173`.
 
-```
-src/
-├── components/
-│   ├── flowers/
-│   │   └── FlowerSelector.jsx
-│   ├── bouquet/
-│   │   ├── BouquetCanvas.jsx
-│   │   ├── LayoutSelector.jsx
-│   │   └── MessageEditor.jsx
-│   └── AdBanner.jsx
-├── pages/
-│   ├── LandingPage.jsx
-│   ├── BouquetBuilder.jsx
-│   ├── PreviewScreen.jsx
-│   └── SharedBouquetPage.jsx
-├── data/
-│   └── flowers.js
-├── utils/
-│   └── urlEncoding.js
-├── App.jsx
-├── main.jsx
-└── index.css
+### Available commands
+
+```sh
+npm run dev        # Start the local development server
+npm run build      # Create a production build in dist/
+npm run preview    # Preview the production build locally
+npm run lint       # Run ESLint
+npm test           # Run the Vitest test suite once
+npm run test:watch # Run tests in watch mode
 ```
 
-## User Flow
+## Optional AdSense setup
 
-### Creating a Bouquet (2-3 minutes)
-1. **Landing Page** → Hero section with CTA
-2. **Flower Selection** → Choose up to 8 flowers
-3. **Layout Selection** → Pick arrangement style
-4. **Message Editor** → Add recipient name, sender name, and message
-5. **Preview** → Review bouquet and copy link
-6. **Share** → Send via link, WhatsApp, or copy to clipboard
+Ads are disabled until both public AdSense values are configured.
 
-### Viewing a Shared Bouquet
-1. **Open Link** → Bouquet loads with animation
-2. **View Message** → Personal greeting is displayed
-3. **Download Option** → Save card as image (coming soon)
-4. **Advertisement** → AdSense banner
-5. **CTA** → Option to create their own bouquet
+1. Copy `.env.example` to `.env`.
+2. Set `VITE_ADSENSE_CLIENT_ID` and `VITE_ADSENSE_SLOT_ID` to the public publisher and ad-slot IDs from your AdSense account.
+3. Restart the development server or rebuild the app.
 
-## Technology Stack
+In PowerShell, copy the example file with:
 
-- **Frontend Framework**: React 19
-- **Build Tool**: Vite 8
-- **Styling**: Tailwind CSS (compiled locally for production)
-- **Animations**: Framer Motion
-- **Fonts**: Playfair Display (headings), Inter (body)
-- **Hosting**: Vercel (recommended)
-
-## Features & Customization
-
-### Supported Flowers
-- Rose
-- Tulip
-- Sunflower
-- Peony
-- Lily
-- Daisy
-- Orchid
-- Lavender
-
-### Bouquet Layouts
-- **Classic Round** - Traditional circular arrangement
-- **Luxury Cascade** - Flowing downward cascade
-- **Minimal Modern** - Clean, tight cluster
-- **Heart Shape** - Romantic heart formation
-
-### Color Scheme
-- **Primary**: Rose Pink (#E85D75)
-- **Secondary**: Blush Pink (#FFD6E0)
-- **Accent**: Lavender (#C8B6FF)
-- **Background**: Cream White (#FFF9F5)
-- **Text**: Dark Charcoal (#2D2D2D)
-
-## Share & Monetization
-
-### Shareable Links
-Bouquet data is encoded into URL using Base64 encoding:
+```powershell
+Copy-Item .env.example .env
 ```
-http://localhost:5173/?bouquet=<encoded-data>
-```
-No backend database needed for MVP!
 
-### AdSense Integration
-Copy `.env.example` to `.env` and set the public `VITE_ADSENSE_CLIENT_ID` and
-`VITE_ADSENSE_SLOT_ID` values. Leave them blank to disable ads. These identifiers
-are public browser configuration, not secrets.
+The project ignores `.env` files so local settings are not added to Git. Vite exposes every variable prefixed with `VITE_` in the browser bundle. These AdSense IDs are public configuration; never put passwords, private API keys, or other secrets in this frontend environment file.
 
-Never store passwords or private API keys in a `VITE_*` variable: Vite includes
-those values in the browser bundle. Bouquet share URLs contain their message
-and names in readable (not encrypted) form. The app now creates those URLs
-locally rather than sending them to shortening services.
+## Sharing and privacy
 
-## Performance
+Bloomverse creates share links in the browser and does not send bouquet or letter content to a URL-shortening service. The link includes the selected flowers or letter settings, names, and message as Base64-encoded data. Base64 is not encryption: anyone with the link can read its contents. Avoid including confidential or sensitive information.
 
-- ⚡ First Load: ~2 seconds
-- 📊 Lighthouse Score: 90+
-- 📱 Mobile Performance: 90+
-- 🖼️ Optimized SVG animations
-- 🚀 Lazy loading enabled
+The app does not require a database or application server for creating and sharing content. Shared content travels in the link itself.
 
-## Browser Support
+## Technology
 
-- ✅ Chrome/Edge 90+
-- ✅ Safari 14+
-- ✅ Firefox 88+
-- ✅ Mobile browsers (iOS Safari, Chrome Mobile)
+- React 19
+- Vite 8
+- Tailwind CSS, compiled locally with PostCSS
+- Framer Motion
+- Vitest and ESLint
 
-## Future Roadmap
+Google Fonts are loaded from Google Fonts. AdSense is optional and only loads when configured.
 
-### Phase 2
-- AI-generated personalized messages
-- Seasonal flower packs
-- Premium themes and effects
+## Project layout
 
-### Phase 3
-- Photo uploads within bouquets
-- Video messages
-- Background music
+- `src/pages/` contains the landing, bouquet builder, preview, and shared-content screens.
+- `src/components/letters/` contains the letter creation steps, themes, and previews.
+- `src/components/bouquet/` and `src/components/flowers/` contain bouquet layout and rendering components.
+- `src/data/` contains flower and letter theme data.
+- `src/utils/` contains sharing, validation, placement, and card-download helpers.
+- `public/` contains images and other static assets.
 
-### Phase 4
-- User accounts (optional)
-- Bouquet history
-- Creator analytics dashboard
+## Build for deployment
 
-## Contributing
+Run `npm run build` and deploy the generated `dist/` directory to a static hosting service that supports Vite apps. Configure the same build command and output directory in your hosting provider. If you use AdSense, add the two public `VITE_ADSENSE_*` values to the provider's build environment.
 
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-MIT License - feel free to use this project for personal or commercial use.
-
-## Support
-
-For issues, feature requests, or questions, please open an issue on GitHub or contact the development team.
-
----
-
-**Made with 💕 by the DigiBloom Team**
-
-*Spreading joy, one digital bouquet at a time.*
