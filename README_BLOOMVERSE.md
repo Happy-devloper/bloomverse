@@ -132,7 +132,7 @@ Each theme includes a full-screen cover page and beautifully styled letter:
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/bloomverse.git
+   git clone https://github.com/Happy-devloper/bloomverse.git
    cd bloomverse
    ```
 
@@ -167,7 +167,7 @@ The optimized build will be in the `dist/` folder, ready to deploy.
 
 ### Deploy to Vercel
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/bloomverse)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Happy-devloper/bloomverse)
 
 Or manually:
 ```bash
@@ -429,9 +429,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 Having issues? Here's how to get help:
 
-- 🐛 **Bug Reports:** [Open an issue](https://github.com/yourusername/bloomverse/issues)
-- 💡 **Feature Requests:** [Suggest a feature](https://github.com/yourusername/bloomverse/issues)
-- 💬 **Questions:** [Start a discussion](https://github.com/yourusername/bloomverse/discussions)
+- 🐛 **Bug Reports:** [Open an issue](https://github.com/Happy-devloper/bloomverse/issues)
+- 💡 **Feature Requests:** [Suggest a feature](https://github.com/Happy-devloper/bloomverse/issues)
+- 💬 **Questions:** [Start a discussion](https://github.com/Happy-devloper/bloomverse/discussions)
 
 ---
 
@@ -443,8 +443,8 @@ If you find this project useful, please consider giving it a ⭐!
 
 <div align="center">
 
-**Made with 💝 by [Your Name]**
+**Made with 💝 by [Ravi]**
 
-[Website](https://blooomverse.vercel.app) • [Report Bug](https://github.com/yourusername/bloomverse/issues) • [Request Feature](https://github.com/yourusername/bloomverse/issues)
+[Website](https://blooomverse.vercel.app) • [Report Bug](https://github.com/Happy-devloper/bloomverse/issues) • [Request Feature](https://github.com/Happy-devloper/bloomverse/issues)
 
 </div>
