@@ -443,7 +443,7 @@ If you find this project useful, please consider giving it a ⭐!
 
 <div align="center">
 
-**Made with 💝 by [Ravi]**
+**Made with 💝 by Ravi**
 
 [Website](https://blooomverse.vercel.app) • [Report Bug](https://github.com/Happy-devloper/bloomverse/issues) • [Request Feature](https://github.com/Happy-devloper/bloomverse/issues)
 
