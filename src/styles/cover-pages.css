@@ -1,0 +1,64 @@
+﻿/* Cover Pages Styling */
+
+.cover-page {
+  animation: coverFadeIn 0.8s ease-in;
+}
+
+.cover-centerpiece {
+  animation: coverScaleIn 1s ease-out 0.3s both;
+}
+
+.cover-text {
+  animation: textFadeIn 1s ease-out 0.6s both;
+}
+
+@keyframes coverFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes coverScaleIn {
+  from { 
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to { 
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes textFadeIn {
+  from { 
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cover-text h1 {
+    font-size: 2rem !important;
+  }
+  
+  .cover-text p {
+    font-size: 1.3rem !important;
+  }
+  
+  .cover-centerpiece svg {
+    width: 150px !important;
+    height: 150px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cover-page,
+  .cover-centerpiece,
+  .cover-text {
+    animation: none !important;
+  }
+}

@@ -1,13 +1,17 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import BouquetCanvas from '../components/bouquet/BouquetCanvas';
+import LetterCanvas from '../components/letters/LetterCanvas';
 import { generateShareLink } from '../utils/urlEncoding';
 import { downloadBouquetCard } from '../utils/cardDownloader';
 
-export default function PreviewScreen({ bouquetData, onBack, onShare }) {
+export default function PreviewScreen({ contentData, onBack, onShare }) {
   const [copied, setCopied] = useState(false);
   const [downloading, setDownloading] = useState(false);
   
-  const shareLink = generateShareLink(bouquetData);
+  // contentData can be either bouquet or letter
+  const shareLink = generateShareLink(contentData);
+  const isBouquet = contentData.type === 'bouquet';
+  const isLetter = contentData.type === 'letter';
 
   const copyToClipboard = async () => {
     try {
@@ -21,7 +25,9 @@ export default function PreviewScreen({ bouquetData, onBack, onShare }) {
   };
 
   const shareOnWhatsApp = () => {
-    const text = `I created a digital flower bouquet for you on Bloomverse! 🌸 Open this link to watch it bloom:`;
+    const text = isBouquet 
+      ? `I created a digital flower bouquet for you on Bloomverse! 🌸 Open this link to watch it bloom:`
+      : `I sent you a vintage letter on Bloomverse! 💌 Open this link to read it:`;
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text + '\n\n' + shareLink)}`;
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
   };
@@ -29,10 +35,9 @@ export default function PreviewScreen({ bouquetData, onBack, onShare }) {
   const handleDownload = async () => {
     setDownloading(true);
     try {
-      // Wait for animations to complete (bouquet animation takes ~2.5 seconds)
-      // Adding extra time to ensure flowers are fully settled
+      // Wait for animations to complete
       await new Promise(resolve => setTimeout(resolve, 3000));
-      await downloadBouquetCard(bouquetData);
+      await downloadBouquetCard(contentData);
     } catch (err) {
       console.error(err);
       alert('Failed to generate card image. Please try again.');
@@ -54,39 +59,58 @@ export default function PreviewScreen({ bouquetData, onBack, onShare }) {
             Creation Complete
           </span>
           <h1 className="text-3xl font-display font-bold text-charcoal">
-            Your Bouquet is Ready!
+            {isBouquet ? 'Your Bouquet is Ready!' : 'Your Letter is Ready!'}
           </h1>
           <p className="text-sm text-gray-500 mt-2 font-light">
-            Preview your luxury greeting card and share it.
+            {isBouquet 
+              ? 'Preview your luxury greeting card and share it.'
+              : 'Preview your vintage letter and share nostalgia.'}
           </p>
         </div>
 
         {/* Live Preview Container */}
         <div className="w-full bg-white/70 backdrop-blur-sm rounded-[24px] shadow-[0_10px_40px_rgba(0,0,0,0.05)] border border-[#FFEBE5]/40 p-4 mb-6">
-          <BouquetCanvas
-            selectedFlowers={bouquetData.flowers}
-            layout={bouquetData.layout}
-          />
-          <p className="text-xs text-gray-400 text-center mt-3 italic">
-            💡 Tip: Let the bouquet bloom fully before downloading for best results
-          </p>
+          {isBouquet ? (
+            <>
+              <BouquetCanvas
+                selectedFlowers={contentData.flowers}
+                layout={contentData.layout}
+              />
+              <p className="text-xs text-gray-400 text-center mt-3 italic">
+                💡 Tip: Let the bouquet bloom fully before downloading for best results
+              </p>
+            </>
+          ) : (
+            <>
+              <LetterCanvas
+                handwritingStyle={contentData.handwritingStyle}
+                recipientName={contentData.recipientName}
+                senderName={contentData.senderName}
+                message={contentData.message}
+                isPreview={true}
+              />
+              <p className="text-xs text-gray-400 text-center mt-3 italic">
+                ✉️ Your vintage letter is ready to be shared
+              </p>
+            </>
+          )}
         </div>
 
         {/* Message Card Preview */}
         <div className="w-full bg-white rounded-[24px] shadow-[0_10px_40px_rgba(0,0,0,0.06)] border border-gray-100 p-8 mb-6 text-center">
           <p className="text-xs text-rose-pink/60 tracking-[2px] font-semibold uppercase mb-2">
-            Card Preview
+            {isBouquet ? 'Card Preview' : 'Letter Preview'}
           </p>
           <h2 className="text-2xl font-display font-semibold text-charcoal mb-4">
-            To: {bouquetData.recipientName}
+            To: {contentData.recipientName}
           </h2>
           <div className="h-[1px] w-8 bg-rose-pink/15 mx-auto mb-4" />
           <p className="text-charcoal font-body leading-relaxed mb-4 text-base font-light italic">
-            "{bouquetData.message}"
+            "{contentData.message}"
           </p>
           <div className="h-[1px] w-8 bg-rose-pink/15 mx-auto mb-4" />
           <p className="text-xs text-gray-400">
-            From: <span className="font-semibold text-charcoal not-italic font-body ml-1">{bouquetData.senderName}</span>
+            From: <span className="font-semibold text-charcoal not-italic font-body ml-1">{contentData.senderName}</span>
           </p>
         </div>
 
@@ -124,10 +148,10 @@ export default function PreviewScreen({ bouquetData, onBack, onShare }) {
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                 </svg>
-                Capturing bouquet...
+                Capturing {isBouquet ? 'bouquet' : 'letter'}...
               </span>
             ) : (
-              '⬇️ Download Photo Card'
+              `⬇️ Download Photo Card`
             )}
           </button>
         </div>

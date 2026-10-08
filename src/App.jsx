@@ -1,26 +1,32 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import './App.css'
 import LandingPage from './pages/LandingPage'
 import BouquetBuilder from './pages/BouquetBuilder'
 import PreviewScreen from './pages/PreviewScreen'
-import SharedBouquetPage from './pages/SharedBouquetPage'
-import { getBouquetFromUrl } from './utils/urlEncoding'
+import SharedContentPage from './pages/SharedContentPage'
+import LetterCreationFlow from './components/letters/LetterCreationFlow'
+import { getContentFromUrl } from './utils/urlEncoding'
 
-const sharedBouquet = getBouquetFromUrl()
-const hasSharedBouquetParameter = ['bouquet', 'b'].some((parameter) =>
+// Check for shared content in URL (supports both new and legacy formats)
+const sharedContent = getContentFromUrl()
+const hasSharedContentParameter = ['content', 'c', 'bouquet', 'b'].some((parameter) =>
   new URLSearchParams(window.location.search).has(parameter)
 )
 
 function App() {
-  const [currentPage, setCurrentPage] = useState(() => hasSharedBouquetParameter ? 'shared' : 'landing')
-  const [bouquetData, setBouquetData] = useState(null)
+  const [currentPage, setCurrentPage] = useState(() => hasSharedContentParameter ? 'shared' : 'landing')
+  const [contentData, setContentData] = useState(null)
 
   const handleCreateBouquet = () => {
     setCurrentPage('builder')
   }
+  
+  const handleCreateLetter = () => {
+    setCurrentPage('letter')
+  }
 
-  const handleBouquetComplete = (data) => {
-    setBouquetData(data)
+  const handleContentComplete = (data) => {
+    setContentData(data)
     setCurrentPage('preview')
   }
 
@@ -30,7 +36,7 @@ function App() {
 
   const handleBackToHome = () => {
     setCurrentPage('landing')
-    setBouquetData(null)
+    setContentData(null)
     // Clear URL
     window.history.pushState({}, '', '/')
   }
@@ -38,20 +44,26 @@ function App() {
   return (
     <div className="bg-cream min-h-screen">
       {currentPage === 'landing' && (
-        <LandingPage onCreateBouquet={handleCreateBouquet} />
+        <LandingPage 
+          onCreateBouquet={handleCreateBouquet}
+          onCreateLetter={handleCreateLetter}
+        />
       )}
       {currentPage === 'builder' && (
-        <BouquetBuilder onComplete={handleBouquetComplete} />
+        <BouquetBuilder onComplete={handleContentComplete} />
       )}
-      {currentPage === 'preview' && bouquetData && (
+      {currentPage === 'letter' && (
+        <LetterCreationFlow onComplete={handleContentComplete} />
+      )}
+      {currentPage === 'preview' && contentData && (
         <PreviewScreen
-          bouquetData={bouquetData}
-          onBack={handleBackToBuilder}
+          contentData={contentData}
+          onBack={() => setCurrentPage(contentData.type === 'letter' ? 'letter' : 'builder')}
           onShare={handleBackToHome}
         />
       )}
       {currentPage === 'shared' && (
-        <SharedBouquetPage bouquetData={sharedBouquet} />
+        <SharedContentPage contentData={sharedContent} />
       )}
     </div>
   )
