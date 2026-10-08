@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Validation utilities for bouquet and letter content
  * Provides whitelisting and constraint validation for shareable content
  */
@@ -25,17 +25,29 @@ export const ALLOWED_LAYOUTS = new Set([
   'heart',
 ]);
 
-// Whitelist of allowed letter templates
-export const ALLOWED_TEMPLATES = new Set([
-  'classic-letter',
-  'vintage-postcard',
+// Whitelist of allowed letter themes
+export const ALLOWED_THEMES = new Set([
+  'passionate-rose',
+  'moonlight-romance',
+  'vintage-love',
+  'garden-whisper',
+  'eternal-gold',
+]);
+
+// Whitelist of allowed handwriting styles
+export const ALLOWED_HANDWRITING_STYLES = new Set([
+  'Dancing Script',
+  'Shadows Into Light',
+  'Cedarville Cursive',
+  'Patrick Hand',
+  'Reenie Beanie',
 ]);
 
 // Content length constraints
 const MAX_RECIPIENT_NAME_LENGTH = 50;
 const MAX_SENDER_NAME_LENGTH = 50;
 const MAX_BOUQUET_MESSAGE_LENGTH = 250;
-const MAX_LETTER_MESSAGE_LENGTH = 500;
+const MAX_LETTER_MESSAGE_LENGTH = 2000;
 const MIN_FLOWER_COUNT = 1;
 const MAX_FLOWER_COUNT = 20;
 
@@ -92,7 +104,8 @@ export function validateBouquetContent(content) {
 /**
  * Validates letter content structure and constraints
  * @param {Object} content - Letter content object
- * @param {string} content.template - Template type
+ * @param {string} content.themeId - Theme ID
+ * @param {string} content.handwritingStyle - Handwriting style
  * @param {string} content.recipientName - Recipient name
  * @param {string} content.senderName - Sender name
  * @param {string} content.message - Message text
@@ -100,27 +113,39 @@ export function validateBouquetContent(content) {
  */
 export function validateLetterContent(content) {
   if (!content || typeof content !== 'object') {
+    console.log('Letter validation failed: not an object');
     return false;
   }
 
-  // Validate template is in whitelist
-  if (!ALLOWED_TEMPLATES.has(content.template)) {
+  // Validate themeId is in whitelist (optional for backward compatibility)
+  if (content.themeId && !ALLOWED_THEMES.has(content.themeId)) {
+    console.log('Letter validation failed: invalid theme', content.themeId);
+    return false;
+  }
+
+  // Validate handwriting style (optional for backward compatibility)
+  if (content.handwritingStyle && !ALLOWED_HANDWRITING_STYLES.has(content.handwritingStyle)) {
+    console.log('Letter validation failed: invalid handwriting', content.handwritingStyle);
     return false;
   }
 
   // Validate string lengths
   if (typeof content.recipientName !== 'string' || content.recipientName.length > MAX_RECIPIENT_NAME_LENGTH) {
+    console.log('Letter validation failed: invalid recipient name');
     return false;
   }
 
   if (typeof content.senderName !== 'string' || content.senderName.length > MAX_SENDER_NAME_LENGTH) {
+    console.log('Letter validation failed: invalid sender name');
     return false;
   }
 
   if (typeof content.message !== 'string' || content.message.length > MAX_LETTER_MESSAGE_LENGTH) {
+    console.log('Letter validation failed: invalid message length', content.message?.length);
     return false;
   }
 
+  console.log('Letter validation passed!');
   return true;
 }
 
