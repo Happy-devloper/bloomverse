@@ -67,7 +67,9 @@ export default function LayoutSelector({ selectedLayout, onLayoutChange }) {
           return (
             <motion.button
               key={layout.id}
+              whileHover={{ scale: 1.02, y: -4 }}
               whileTap={{ scale: 0.97 }}
+              transition={{ duration: 0.2 }}
               onClick={() => onLayoutChange(layout.id)}
               className={`relative p-4 rounded-3xl border-2 transition-all duration-300 flex flex-col items-center text-center cursor-pointer group ${
                 isSelected
@@ -109,3 +111,4 @@ export default function LayoutSelector({ selectedLayout, onLayoutChange }) {
     </div>
   );
 }
+

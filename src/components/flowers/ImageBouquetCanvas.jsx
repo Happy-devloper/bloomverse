@@ -51,25 +51,25 @@ const getFlowerPositions = (selectedIds, layoutType, width, height) => {
     const baseScale = flowerInfo.baseScale || 1.0;
 
     if (layoutType === 'classic' || !layoutType) {
-      const angle = i * 2.4;
+      const angle = (i / count) * Math.PI * 2;
       const radius = Math.sqrt(i) * 55;
-
       x = centerX + Math.cos(angle) * radius * 1.1;
       y = centerY + Math.sin(angle) * radius * 0.85;
       scale = baseScale * (1.05 - (i * 0.03));
-      rotation = Math.sin(i * 2.4) * 0.6;
+      rotation = Math.sin(i + 1) * 0.4;
     } else if (layoutType === 'cascade') {
       const row = Math.floor(i / 2);
       const col = i % 2;
       x = centerX + (col - 0.5) * 160;
       y = (centerY - 50) + (row * 110);
       scale = baseScale * (1.1 - row * 0.1);
-      rotation = (col - 0.5) * 0.3;
+      rotation = (col - 0.5) * 0.4;
     } else if (layoutType === 'modern') {
-      x = centerX + (i % 2 === 0 ? -100 : 100);
-      y = centerY + (i * 90) - 100;
+      const side = i % 2 === 0 ? -1 : 1;
+      x = centerX + side * (100 + Math.random() * 50);
+      y = centerY + (i * 100) - 100;
       scale = baseScale * 1.1;
-      rotation = Math.sin(i + 1) * 0.2;
+      rotation = Math.sin(i + 1) * 0.3;
     } else if (layoutType === 'heart') {
       const t = (i / count) * Math.PI * 2 - Math.PI / 2;
       const spread = 28;
@@ -154,23 +154,16 @@ const ImageBouquetCanvas = ({ selectedFlowers, layout, width = 800, height = 106
         ctx.drawImage(img, -dW / 2, -dH / 2, dW, dH);
         ctx.restore();
       });
-
     };
 
-    render().catch((error) => {
-      if (!isCancelled) console.error('Failed to render bouquet:', error);
-    });
-    return () => { isCancelled = true; };
+    render();
+
+    return () => {
+      isCancelled = true;
+    };
   }, [selectedFlowers, layout, width, height]);
 
-  return (
-    <canvas
-      ref={canvasRef}
-      width={width}
-      height={height}
-      className="w-full h-auto block select-none bg-white rounded-3xl shadow-sm"
-    />
-  );
+  return <canvas ref={canvasRef} width={width} height={height} style={{ width: '100%', height: '100%' }} />;
 };
 
 export default ImageBouquetCanvas;

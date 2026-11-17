@@ -1,0 +1,65 @@
+/* Responsive Letter Styles - Mobile Optimization */
+
+/* Tablet: 481px - 768px */
+@media (max-width: 768px) and (min-width: 481px) {
+  .themed-letter-page {
+    max-width: 90vw !important;
+    padding: 40px !important;
+  }
+  
+  .cover-centerpiece {
+    margin-bottom: 40px;
+  }
+  
+  .letter-content {
+    max-width: 100%;
+  }
+}
+
+/* Mobile: = 480px */
+@media (max-width: 480px) {
+  .themed-letter-page {
+    max-width: 95vw !important;
+    padding: 25px !important;
+    min-height: auto;
+  }
+  
+  .cover-page {
+    padding: 20px;
+  }
+  
+  .cover-centerpiece {
+    margin-bottom: 30px;
+  }
+  
+  .corner-decorations {
+    display: none; /* Hide on very small screens */
+  }
+  
+  .letter-content {
+    font-size: 16px !important; /* Minimum readable size */
+  }
+  
+  /* Ensure decorations don't overflow */
+  .theme-decoration {
+    max-width: 80px;
+  }
+  
+  /* Scrollable letter on mobile */
+  .themed-letter-page {
+    overflow-y: auto;
+    max-height: 90vh;
+  }
+}
+
+/* Landscape mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .cover-page {
+    min-height: auto;
+    padding: 30px 20px;
+  }
+  
+  .cover-centerpiece {
+    margin-bottom: 20px;
+  }
+}

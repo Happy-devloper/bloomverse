@@ -1,7 +1,8 @@
-﻿import React from 'react';
+import React from 'react';
 import { getThemeById } from '../../data/letterThemes';
 import ThemeDecoration from './decorations/ThemeDecoration';
 import '../../styles/letter-themes.css';
+import '../../styles/responsive-letter.css';
 
 /**
  * Themed Letter Page Component - Renders letter with theme styling
@@ -29,9 +30,10 @@ export default function ThemedLetterPage({
         transformOrigin: 'top center',
         background: letterPage.paperColor,
         color: letterPage.textColor,
-        padding: '60px',
+        padding: 'clamp(30px, 8vw, 60px)',
         minHeight: '800px',
         maxWidth: '600px',
+        width: '100%',
         margin: '0 auto',
         position: 'relative',
         boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
@@ -40,7 +42,7 @@ export default function ThemedLetterPage({
           : 'none'
       }}
     >
-      {/* Render decorations */}
+      {/* Render decorations with responsive scaling */}
       {letterPage.decorations.map((decoration, index) => (
         <ThemeDecoration
           key={index}
@@ -49,15 +51,16 @@ export default function ThemedLetterPage({
           opacity={decoration.opacity}
           color={decoration.color}
           size={decoration.size}
+          responsive={true}
         />
       ))}
       
-      {/* Letter content */}
+      {/* Letter content with responsive typography */}
       <div className="letter-content" style={{ position: 'relative', zIndex: 5 }}>
         {/* Recipient */}
         <div style={{ 
-          fontSize: '1.3rem',
-          marginBottom: '2rem',
+          fontSize: 'clamp(1.1rem, 2.5vw, 1.3rem)',
+          marginBottom: 'clamp(1.5rem, 4vw, 2rem)',
           fontFamily: handwritingStyle || 'Dancing Script, cursive'
         }}>
           To {recipientName},
@@ -65,18 +68,19 @@ export default function ThemedLetterPage({
         
         {/* Message */}
         <div style={{ 
-          fontSize: '1.1rem',
-          lineHeight: '2',
+          fontSize: 'clamp(1rem, 2.2vw, 1.1rem)',
+          lineHeight: 'clamp(1.8, 2vw, 2)',
           whiteSpace: 'pre-wrap',
           fontFamily: handwritingStyle || 'Dancing Script, cursive',
-          marginBottom: '3rem'
+          marginBottom: 'clamp(2rem, 5vw, 3rem)',
+          wordBreak: 'break-word'
         }}>
           {message}
         </div>
         
         {/* Sender */}
         <div style={{ 
-          fontSize: '1.3rem',
+          fontSize: 'clamp(1.1rem, 2.5vw, 1.3rem)',
           textAlign: 'right',
           fontFamily: handwritingStyle || 'Dancing Script, cursive'
         }}>
@@ -87,3 +91,4 @@ export default function ThemedLetterPage({
     </div>
   );
 }
+

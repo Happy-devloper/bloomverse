@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { flowers } from '../../data/flowers';
 
 export default function FlowerSelector({ selectedFlowers, onFlowerToggle, maxFlowers = 20 }) {
@@ -53,9 +54,12 @@ export default function FlowerSelector({ selectedFlowers, onFlowerToggle, maxFlo
           const isSelected = count > 0;
 
           return (
-            <button
+            <motion.button
               key={flower.id}
               onClick={() => handleAdd(flower.id)}
+              whileHover={{ scale: 1.02, y: -4 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ duration: 0.2 }}
               className={`relative flex flex-col items-center rounded-[20px] border p-2 text-center transition-all ${
                 isSelected
                   ? 'border-rose-pink bg-[#FFF2F4] shadow-sm'
@@ -72,7 +76,7 @@ export default function FlowerSelector({ selectedFlowers, onFlowerToggle, maxFlo
                     onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleRemove(flower.id, e); }}
                     className="text-[11px] font-semibold text-slate-500 cursor-pointer select-none"
                   >
-                    −
+                    -
                   </span>
                 </div>
               )}
@@ -90,7 +94,7 @@ export default function FlowerSelector({ selectedFlowers, onFlowerToggle, maxFlo
               <div className="mt-2 w-full">
                 <div className="text-[13px] font-semibold text-slate-700">{flower.name}</div>
               </div>
-            </button>
+            </motion.button>
           );
         })}
       </div>
