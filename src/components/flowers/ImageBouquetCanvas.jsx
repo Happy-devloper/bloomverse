@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+﻿import { useEffect, useRef } from 'react';
 import { flowers as flowerData } from '../../data/flowers';
 
 const imageCache = new Map();
@@ -51,12 +51,19 @@ const getFlowerPositions = (selectedIds, layoutType, width, height) => {
     const baseScale = flowerInfo.baseScale || 1.0;
 
     if (layoutType === 'classic' || !layoutType) {
-      const angle = (i / count) * Math.PI * 2;
-      const radius = Math.sqrt(i) * 55;
-      x = centerX + Math.cos(angle) * radius * 1.1;
-      y = centerY + Math.sin(angle) * radius * 0.85;
-      scale = baseScale * (1.05 - (i * 0.03));
-      rotation = Math.sin(i + 1) * 0.4;
+      // SIMPLE: Just arrange flowers in a basic cluster
+      // First flower in center, others arranged around it evenly
+      if (i === 0) {
+        x = centerX;
+        y = centerY;
+      } else {
+        const angle = ((i - 1) / (count - 1)) * Math.PI * 2;
+        const radius = 100 + Math.random() * 50;
+        x = centerX + Math.cos(angle) * radius;
+        y = centerY + Math.sin(angle) * radius * 0.8;
+      }
+      scale = baseScale * 1.0;
+      rotation = 0;
     } else if (layoutType === 'cascade') {
       const row = Math.floor(i / 2);
       const col = i % 2;
@@ -66,10 +73,10 @@ const getFlowerPositions = (selectedIds, layoutType, width, height) => {
       rotation = (col - 0.5) * 0.4;
     } else if (layoutType === 'modern') {
       const side = i % 2 === 0 ? -1 : 1;
-      x = centerX + side * (100 + Math.random() * 50);
-      y = centerY + (i * 100) - 100;
+      x = centerX + side * 120;
+      y = centerY + (i * 90) - 100;
       scale = baseScale * 1.1;
-      rotation = Math.sin(i + 1) * 0.3;
+      rotation = 0;
     } else if (layoutType === 'heart') {
       const t = (i / count) * Math.PI * 2 - Math.PI / 2;
       const spread = 28;
@@ -125,7 +132,7 @@ const ImageBouquetCanvas = ({ selectedFlowers, layout, width = 800, height = 106
         return { ...pos, img, dW, dH };
       });
 
-      // 1. Draw Stems attached to the flower bases
+      // 1. Draw Stems
       ctx.save();
       ctx.lineWidth = 5;
       ctx.lineCap = 'round';
@@ -140,7 +147,7 @@ const ImageBouquetCanvas = ({ selectedFlowers, layout, width = 800, height = 106
       });
       ctx.restore();
 
-      // 2. Draw Flowers on top of their stems
+      // 2. Draw Flowers
       flowerMetrics.forEach((flower) => {
         const { img, dW, dH, x, y, rotation } = flower;
         ctx.save();
@@ -156,14 +163,20 @@ const ImageBouquetCanvas = ({ selectedFlowers, layout, width = 800, height = 106
       });
     };
 
-    render();
-
-    return () => {
-      isCancelled = true;
-    };
+    render().catch((error) => {
+      if (!isCancelled) console.error('Failed to render bouquet:', error);
+    });
+    return () => { isCancelled = true; };
   }, [selectedFlowers, layout, width, height]);
 
-  return <canvas ref={canvasRef} width={width} height={height} style={{ width: '100%', height: '100%' }} />;
+  return (
+    <canvas
+      ref={canvasRef}
+      width={width}
+      height={height}
+      className="w-full h-auto block select-none bg-white rounded-3xl shadow-sm"
+    />
+  );
 };
 
 export default ImageBouquetCanvas;
